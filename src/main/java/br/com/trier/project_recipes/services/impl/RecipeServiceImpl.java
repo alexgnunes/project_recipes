@@ -7,20 +7,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.trier.project_recipes.models.Recipe;
+import br.com.trier.project_recipes.models.enums.Difficulty;
 import br.com.trier.project_recipes.repositories.RecipeRepository;
 import br.com.trier.project_recipes.services.RecipeService;
 import br.com.trier.project_recipes.services.exceptions.ObjectNotFound;
 
 @Service
-public class RecipeServiceImpl implements RecipeService{
+public class RecipeServiceImpl implements RecipeService {
 
 	@Autowired
 	private RecipeRepository repository;
-	
+
 	@Override
 	public Recipe findById(Integer id) {
 		Optional<Recipe> recipe = repository.findById(id);
-		return recipe.orElseThrow(() -> new ObjectNotFound("Receita %s nao encontrada".formatted(id)));
+		return recipe.orElseThrow(() -> new ObjectNotFound("Receita %s não encontrada".formatted(id)));
+	}
+
+	@Override
+	public List<Recipe> findByTitleOrderByTitle(String title) {
+		List<Recipe> list = repository.findByTitleOrderByTitle(title);
+		if (list.isEmpty()) {
+			throw new ObjectNotFound("Receita %s não encontrada".formatted(title));
+		}
+		return list;
+	}
+
+	@Override
+	public List<Recipe> findByTitleContainingOrderByTitle(String title) {
+		List<Recipe> list = repository.findByTitleOrderByTitle(title);
+		if (list.isEmpty()) {
+			throw new ObjectNotFound("Receita %s não encontrada".formatted(title));
+		}
+		return list;
+	}
+
+	@Override
+	public List<Recipe> findByDifficultyOrderByTitle(Difficulty difficulty) {
+		List<Recipe> list = repository.findByDifficultyOrderByTitle(difficulty);
+		if (list.isEmpty()) {
+			throw new ObjectNotFound("Não houve uma receita com dificuldade: %s".formatted(difficulty));
+		}
+		return list;
 	}
 
 	@Override

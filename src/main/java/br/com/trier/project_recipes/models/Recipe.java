@@ -33,7 +33,7 @@ public class Recipe {
 	private String description;
 	
 	@Column(name = "preparation_Time_recipe")
-	private String preparationTime;
+	private Integer preparationTime;
 	
 	@Column(name = "difficulty_recipe")
 	private Difficulty difficulty;

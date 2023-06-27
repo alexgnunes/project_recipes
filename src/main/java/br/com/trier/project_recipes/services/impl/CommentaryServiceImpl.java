@@ -46,8 +46,7 @@ public class CommentaryServiceImpl implements CommentaryService{
 	@Override
 	public void delete(Integer id) {
 		Commentary commentary = findById(id);
-		repository.delete(commentary);
-		
+		repository.delete(commentary);		
 	}	
 }
 

@@ -24,6 +24,24 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
+	public List<Category> findByNameOrderByName(String title) {
+		List<Category> list = repository.findByNameOrderByName(title);
+		if (list.isEmpty()) {
+			throw new ObjectNotFound("Receita %s não encontrada".formatted(title));
+		}
+		return list;
+	}
+
+	@Override
+	public List<Category> findByNameContainingOrderByName(String title) {
+		List<Category> list = repository.findByNameContainingOrderByName(title);
+		if (list.isEmpty()) {
+			throw new ObjectNotFound("Receita %s não encontrada".formatted(title));
+		}
+		return list;
+	}
+
+	@Override
 	public List<Category> listAll() {
 		List<Category> list = repository.findAll();
 		if (list.isEmpty()) {

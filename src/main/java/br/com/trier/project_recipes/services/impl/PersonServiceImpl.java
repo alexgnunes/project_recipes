@@ -20,7 +20,7 @@ public class PersonServiceImpl implements PersonService{
 	@Override
 	public Person findById(Integer id) {
 		Optional<Person> person = repository.findById(id);
-		return person.orElseThrow(() -> new ObjectNotFound("Usuario %s nao encontrado".formatted(id)));
+		return person.orElseThrow(() -> new ObjectNotFound("Usuario %s não encontrado".formatted(id)));
 	}
 
 	@Override
