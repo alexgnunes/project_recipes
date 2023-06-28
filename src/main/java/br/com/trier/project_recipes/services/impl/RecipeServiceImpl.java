@@ -44,7 +44,7 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Override
 	public List<Recipe> findByDifficultyIgnoreCaseOrderByTitle(Difficulty difficulty) {
-		List<Recipe> list = repository.findByDifficultyIgnoreCaseOrderByTitle(difficulty);
+		List<Recipe> list = repository.findByDifficultyIgnoreCaseOrderByTitle(difficulty.toString());
 		if (list.isEmpty()) {
 			throw new ObjectNotFound("Não houve uma receita com dificuldade: %s".formatted(difficulty));
 		}
