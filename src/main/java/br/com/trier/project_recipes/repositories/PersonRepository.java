@@ -10,5 +10,6 @@ import br.com.trier.project_recipes.models.Person;
 public interface PersonRepository extends JpaRepository<Person, Integer> {
 
 	Optional<Person> findByEmail(String email);
+
 	List<Person> findByNameContainingIgnoreCaseOrderByName(String name);
 }

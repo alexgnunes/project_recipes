@@ -13,28 +13,27 @@ import br.com.trier.project_recipes.services.exceptions.IntegrityViolation;
 import br.com.trier.project_recipes.services.exceptions.ObjectNotFound;
 
 @Service
-public class PersonServiceImpl implements PersonService{
+public class PersonServiceImpl implements PersonService {
 
 	@Autowired
 	private PersonRepository repository;
-	
+
 	private void findByEmail(Person person) {
-	    Optional<Person> busca = repository.findByEmail(person.getEmail());
-	    busca.ifPresent(x -> {
-	        if (!x.getId().equals(person.getId())) {
-	            throw new IntegrityViolation("%s já cadastrado ".formatted(person.getEmail()));
-	        }
-	    });
+		Optional<Person> busca = repository.findByEmail(person.getEmail());
+		busca.ifPresent(x -> {
+			if (!x.getId().equals(person.getId())) {
+				throw new IntegrityViolation("%s já cadastrado ".formatted(person.getEmail()));
+			}
+		});
 	}
-	
+
 	@Override
 	public Person findById(Integer id) {
 		Optional<Person> person = repository.findById(id);
 		return person.orElseThrow(() -> new ObjectNotFound("Usuario %s não encontrado".formatted(id)));
-	}		
-	
-	
-	@Override 
+	}
+
+	@Override
 	public List<Person> findByNameContainingIgnoreCaseOrderByName(String name) {
 		List<Person> list = repository.findByNameContainingIgnoreCaseOrderByName(name);
 		if (list.isEmpty()) {
