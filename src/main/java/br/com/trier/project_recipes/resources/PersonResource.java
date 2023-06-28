@@ -31,7 +31,8 @@ public class PersonResource {
 	
 	@GetMapping("/name/{name}")
 	public ResponseEntity<List<PersonDTO>> findByNameContainingIgnoreCaseOrderByName(@PathVariable String name) {
-		return ResponseEntity.ok(service.findByNameContainingIgnoreCaseOrderByName(name).stream().map((user) -> user.toDTO()).toList());
+		return ResponseEntity.ok(service.findByNameContainingIgnoreCaseOrderByName(name)
+				.stream().map((user) -> user.toDTO()).toList());
 	}
 	
 	@GetMapping

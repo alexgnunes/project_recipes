@@ -1,5 +1,8 @@
 package br.com.trier.project_recipes.models;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,8 +32,10 @@ public class Commentary {
 	private String content;
 	
 	@ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Person person;
 	
 	@ManyToOne	
+	@OnDelete(action = OnDeleteAction.CASCADE)
     private Recipe recipe;
 }
