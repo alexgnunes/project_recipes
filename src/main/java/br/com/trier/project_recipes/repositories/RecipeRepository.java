@@ -9,7 +9,7 @@ import br.com.trier.project_recipes.models.enums.Difficulty;
 
 public interface RecipeRepository extends JpaRepository<Recipe, Integer>{
 
-	List<Recipe> findByTitleOrderByTitle(String title);
-	List<Recipe> findByTitleContainingOrderByTitle(String title);
-	List<Recipe> findByDifficultyOrderByTitle(Difficulty difficulty);
+	List<Recipe> findByTitleOrderIgnoreCaseByTitle(String title);
+	List<Recipe> findByTitleContainingIgnoreCaseOrderByTitle(String title);
+	List<Recipe> findByDifficultyIgnoreCaseOrderByTitle(Difficulty difficulty);
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.trier.project_recipes.models.Recipe;
+import br.com.trier.project_recipes.models.enums.Difficulty;
 import br.com.trier.project_recipes.services.RecipeService;
 
 @RestController
@@ -30,15 +31,19 @@ public class RecipeResource {
 	}
 	
 	@GetMapping("/title/{title}")
-	public ResponseEntity<List<Recipe>> findByTitleOrderByTitle(@PathVariable String title){
-		return ResponseEntity.ok(service.findByTitleOrderByTitle(title));
+	public ResponseEntity<List<Recipe>> findByTitleOrderIgnoreCaseByTitle(@PathVariable String title){
+		return ResponseEntity.ok(service.findByTitleOrderIgnoreCaseByTitle(title));
 	}
 	
 	@GetMapping("/partTitle/{title}")
-	public ResponseEntity<List<Recipe>> findByTitleContainingOrderByTitle(@PathVariable String title){
-		return ResponseEntity.ok(service.findByTitleContainingOrderByTitle(title));
+	public ResponseEntity<List<Recipe>> findByTitleContainingIgnoreCaseOrderByTitle(@PathVariable String title){
+		return ResponseEntity.ok(service.findByTitleContainingIgnoreCaseOrderByTitle(title));
 	}
 	
+	@GetMapping("/Difficulty/{Difficulty}")
+	public ResponseEntity<List<Recipe>> findByDifficultyIgnoreCaseOrderByTitle(@PathVariable Difficulty difficulty){
+		return ResponseEntity.ok(service.findByDifficultyIgnoreCaseOrderByTitle(difficulty));
+	}
 	@GetMapping
 	public ResponseEntity<List<Recipe>> listAll(){
 		return ResponseEntity.ok(service.listAll());
