@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.trier.project_recipes.models.Category;
 import br.com.trier.project_recipes.repositories.CategoryRepository;
 import br.com.trier.project_recipes.services.CategoryService;
+import br.com.trier.project_recipes.services.exceptions.DataBaseException;
 import br.com.trier.project_recipes.services.exceptions.ObjectNotFound;
 
 @Service
@@ -63,8 +65,11 @@ public class CategoryServiceImpl implements CategoryService{
 
 	@Override
 	public void delete(Integer id) {
-		Category category = findById(id);
-		repository.delete(category);
-		
+		try{
+			Category category = findById(id);
+			repository.delete(category);	
+		}catch (DataIntegrityViolationException e) {
+			throw new DataBaseException(e.getMessage());
+		}	
 	}	
 }

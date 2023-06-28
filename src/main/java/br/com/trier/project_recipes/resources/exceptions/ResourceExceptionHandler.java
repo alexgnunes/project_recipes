@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import br.com.trier.project_recipes.services.exceptions.DataBaseException;
 import br.com.trier.project_recipes.services.exceptions.IntegrityViolation;
 import br.com.trier.project_recipes.services.exceptions.ObjectNotFound;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +23,12 @@ public class ResourceExceptionHandler {
 	
 	@ExceptionHandler(IntegrityViolation.class)
 	public ResponseEntity<StandartError> getIt(IntegrityViolation e, HttpServletRequest req){
+		StandartError error = new StandartError(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(), e.getMessage(), req.getRequestURI());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
+	
+	@ExceptionHandler(DataBaseException.class)
+	public ResponseEntity<StandartError> dataBase(DataBaseException e, HttpServletRequest req){
 		StandartError error = new StandartError(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(), e.getMessage(), req.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}

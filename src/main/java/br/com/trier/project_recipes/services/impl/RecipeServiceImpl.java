@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.trier.project_recipes.models.Recipe;
 import br.com.trier.project_recipes.models.enums.Difficulty;
 import br.com.trier.project_recipes.repositories.RecipeRepository;
 import br.com.trier.project_recipes.services.RecipeService;
+import br.com.trier.project_recipes.services.exceptions.DataBaseException;
 import br.com.trier.project_recipes.services.exceptions.ObjectNotFound;
 
 @Service
@@ -73,7 +75,11 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Override
 	public void delete(Integer id) {
-		Recipe recipe = findById(id);
-		repository.delete(recipe);
+		try{
+			Recipe recipe = findById(id);
+			repository.delete(recipe);
+		}catch (DataIntegrityViolationException e) {
+			throw new DataBaseException(e.getMessage());
+		}		
 	}
 }

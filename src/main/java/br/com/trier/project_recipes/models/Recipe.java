@@ -42,5 +42,5 @@ public class Recipe {
 	private Person person;
 	
 	@ManyToOne
-	private Category category;
+	private Category category;	
 }

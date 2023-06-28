@@ -31,6 +31,6 @@ public class Commentary {
 	@ManyToOne
 	private Person person;
 	
-	@ManyToOne
+	@ManyToOne	
     private Recipe recipe;
 }

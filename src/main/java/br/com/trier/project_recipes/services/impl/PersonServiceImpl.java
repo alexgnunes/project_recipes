@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.trier.project_recipes.models.Person;
 import br.com.trier.project_recipes.repositories.PersonRepository;
 import br.com.trier.project_recipes.services.PersonService;
+import br.com.trier.project_recipes.services.exceptions.DataBaseException;
 import br.com.trier.project_recipes.services.exceptions.IntegrityViolation;
 import br.com.trier.project_recipes.services.exceptions.ObjectNotFound;
 
@@ -64,7 +66,11 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public void delete(Integer id) {
-		Person person = findById(id);
-		repository.delete(person);
+		try{
+			Person person = findById(id);
+			repository.delete(person);
+		}catch (DataIntegrityViolationException e) {
+			throw new DataBaseException(e.getMessage());
+		}
 	}
 }

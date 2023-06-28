@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.trier.project_recipes.models.Commentary;
 import br.com.trier.project_recipes.repositories.CommentaryRepository;
 import br.com.trier.project_recipes.services.CommentaryService;
+import br.com.trier.project_recipes.services.exceptions.DataBaseException;
 import br.com.trier.project_recipes.services.exceptions.ObjectNotFound;
 
 @Service
@@ -54,8 +56,12 @@ public class CommentaryServiceImpl implements CommentaryService{
 
 	@Override
 	public void delete(Integer id) {
-		Commentary commentary = findById(id);
-		repository.delete(commentary);		
+		try{
+			Commentary commentary = findById(id);
+			repository.delete(commentary);	
+		}catch (DataIntegrityViolationException e) {
+			throw new DataBaseException(e.getMessage());
+		}			
 	}	
 }
 
