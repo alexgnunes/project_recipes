@@ -41,8 +41,8 @@ public class RecipeResource {
 	}
 	
 	@GetMapping("/Difficulty/{Difficulty}")
-	public ResponseEntity<List<Recipe>> findByDifficultyIgnoreCaseOrderByTitle(@PathVariable Difficulty difficulty){
-		return ResponseEntity.ok(service.findByDifficultyIgnoreCaseOrderByTitle(difficulty));
+	public ResponseEntity<List<Recipe>> findByDifficultyOrderByTitle(@PathVariable Difficulty difficulty){
+		return ResponseEntity.ok(service.findByDifficultyOrderByTitle(difficulty));
 	}
 	@GetMapping
 	public ResponseEntity<List<Recipe>> listAll(){

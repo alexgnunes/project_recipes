@@ -10,7 +10,7 @@ public interface RecipeService {
 	Recipe findById(Integer id);
 	List<Recipe> findByTitleIgnoreCaseOrderByTitle(String title);
 	List<Recipe> findByTitleContainingIgnoreCaseOrderByTitle(String title);
-	List<Recipe> findByDifficultyIgnoreCaseOrderByTitle(Difficulty difficulty);
+	List<Recipe> findByDifficultyOrderByTitle(Difficulty difficulty);
 	List<Recipe> listAll();
 	Recipe insert(Recipe recipe);	
 	Recipe update(Recipe recipe);

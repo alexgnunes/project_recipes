@@ -10,5 +10,5 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer>{
 
 	List<Recipe> findByTitleIgnoreCaseOrderByTitle(String title);
 	List<Recipe> findByTitleContainingIgnoreCaseOrderByTitle(String title);
-	List<Recipe> findByDifficultyIgnoreCaseOrderByTitle(String string);
+	List<Recipe> findByDifficultyOrderByTitle(String string);
 }
