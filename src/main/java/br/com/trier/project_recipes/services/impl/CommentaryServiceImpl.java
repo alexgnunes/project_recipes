@@ -24,8 +24,8 @@ public class CommentaryServiceImpl implements CommentaryService{
 	}
 
 	@Override
-	public List<Commentary> findByContentContaining(String content) {
-		List<Commentary> list = repository.findByContentContaining(content);
+	public List<Commentary> findByContentContainingIgnoreCase(String content) {
+		List<Commentary> list = repository.findByContentContainingIgnoreCase(content);
 		if (list.isEmpty()) {
 			throw new ObjectNotFound("Nenhum comentario cadastrato");
 		}

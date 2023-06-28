@@ -30,4 +30,7 @@ public class Commentary {
 	
 	@ManyToOne
 	private Person person;
+	
+	@ManyToOne
+    private Recipe recipe;
 }

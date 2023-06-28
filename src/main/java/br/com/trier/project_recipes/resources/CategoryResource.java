@@ -30,13 +30,13 @@ public class CategoryResource {
 	}
 	
 	@GetMapping("/name/{name}")
-	public ResponseEntity<List<Category>> findByNameOrderByName(@PathVariable String name){
-		return ResponseEntity.ok(service.findByNameOrderByName(name));
+	public ResponseEntity<List<Category>> findByNameIgnoreCaseOrderByName(@PathVariable String name){
+		return ResponseEntity.ok(service.findByNameIgnoreCaseOrderByName(name));
 	}
 	
 	@GetMapping("/partName/{name}")
-	public ResponseEntity<List<Category>> findByNameContainingOrderByName(@PathVariable String name){
-		return ResponseEntity.ok(service.findByNameContainingOrderByName(name));
+	public ResponseEntity<List<Category>> findByNameContainingIgnoreCaseOrderByName(@PathVariable String name){
+		return ResponseEntity.ok(service.findByNameContainingIgnoreCaseOrderByName(name));
 	}
 	
 	@GetMapping

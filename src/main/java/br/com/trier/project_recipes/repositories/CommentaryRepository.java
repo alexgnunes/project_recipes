@@ -8,6 +8,6 @@ import br.com.trier.project_recipes.models.Commentary;
 
 public interface CommentaryRepository extends JpaRepository<Commentary, Integer>{
 
-	List<Commentary> findByContentContaining(String content);
+	List<Commentary> findByContentContainingIgnoreCase(String content);
 
 }

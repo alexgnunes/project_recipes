@@ -7,8 +7,8 @@ import br.com.trier.project_recipes.models.Category;
 public interface CategoryService {
 
 	Category findById(Integer id);
-	List<Category> findByNameOrderByName(String title);
-	List<Category> findByNameContainingOrderByName(String title);
+	List<Category> findByNameIgnoreCaseOrderByName(String title);
+	List<Category> findByNameContainingIgnoreCaseOrderByName(String title);
 	List<Category> listAll();
 	Category insert(Category category);	
 	Category update(Category category);

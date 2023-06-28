@@ -42,8 +42,5 @@ public class Recipe {
 	private Person person;
 	
 	@ManyToOne
-	private Commentary commentary;
-	
-	@ManyToOne
 	private Category category;
 }

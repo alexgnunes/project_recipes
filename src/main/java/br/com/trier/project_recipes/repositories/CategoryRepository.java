@@ -8,6 +8,6 @@ import br.com.trier.project_recipes.models.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer>{
 
-	List<Category> findByNameOrderByName(String title);
-	List<Category> findByNameContainingOrderByName(String title);
+	List<Category> findByNameIgnoreCaseOrderByName(String title);
+	List<Category> findByNameContainingIgnoreCaseOrderByName(String title);
 }

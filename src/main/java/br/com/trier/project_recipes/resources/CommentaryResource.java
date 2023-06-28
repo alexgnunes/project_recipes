@@ -30,8 +30,8 @@ public class CommentaryResource {
 	}
 	
 	@GetMapping("/content/{content}")
-	public ResponseEntity<List<Commentary>> findByContentContaining(@PathVariable String content){
-		return ResponseEntity.ok(service.findByContentContaining(content));
+	public ResponseEntity<List<Commentary>> findByContentContainingIgnoreCase(@PathVariable String content){
+		return ResponseEntity.ok(service.findByContentContainingIgnoreCase(content));
 	}
 	
 	@GetMapping

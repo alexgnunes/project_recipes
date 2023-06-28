@@ -24,8 +24,8 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public List<Category> findByNameOrderByName(String title) {
-		List<Category> list = repository.findByNameOrderByName(title);
+	public List<Category> findByNameIgnoreCaseOrderByName(String title) {
+		List<Category> list = repository.findByNameIgnoreCaseOrderByName(title);
 		if (list.isEmpty()) {
 			throw new ObjectNotFound("Receita %s não encontrada".formatted(title));
 		}
@@ -33,8 +33,8 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public List<Category> findByNameContainingOrderByName(String title) {
-		List<Category> list = repository.findByNameContainingOrderByName(title);
+	public List<Category> findByNameContainingIgnoreCaseOrderByName(String title) {
+		List<Category> list = repository.findByNameContainingIgnoreCaseOrderByName(title);
 		if (list.isEmpty()) {
 			throw new ObjectNotFound("Receita %s não encontrada".formatted(title));
 		}
