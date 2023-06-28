@@ -1,5 +1,6 @@
 package br.com.trier.project_recipes.models;
 
+import br.com.trier.project_recipes.models.dto.PersonDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,5 +33,13 @@ public class Person {
 
 	@Column(name = "senha_person")
 	private String password;
+	
+	public Person(PersonDTO dto) {
+		this(dto.getId(),dto.getName(),dto.getEmail(),dto.getPassword());
+	}
+	
+	public PersonDTO toDTO() {
+		return new PersonDTO(id, name, email, password);		
+	}
 	
 }
