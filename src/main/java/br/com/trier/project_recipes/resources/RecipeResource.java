@@ -31,8 +31,8 @@ public class RecipeResource {
 	}
 	
 	@GetMapping("/title/{title}")
-	public ResponseEntity<List<Recipe>> findByTitleOrderIgnoreCaseByTitle(@PathVariable String title){
-		return ResponseEntity.ok(service.findByTitleOrderIgnoreCaseByTitle(title));
+	public ResponseEntity<List<Recipe>> findByTitleIgnoreCaseOrderByTitle(@PathVariable String title){
+		return ResponseEntity.ok(service.findByTitleIgnoreCaseOrderByTitle(title));
 	}
 	
 	@GetMapping("/partTitle/{title}")

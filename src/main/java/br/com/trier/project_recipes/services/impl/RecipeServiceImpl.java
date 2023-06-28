@@ -25,8 +25,8 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public List<Recipe> findByTitleOrderIgnoreCaseByTitle(String title) {
-		List<Recipe> list = repository.findByTitleOrderIgnoreCaseByTitle(title);
+	public List<Recipe> findByTitleIgnoreCaseOrderByTitle(String title) {
+		List<Recipe> list = repository.findByTitleIgnoreCaseOrderByTitle(title);
 		if (list.isEmpty()) {
 			throw new ObjectNotFound("Receita %s não encontrada".formatted(title));
 		}

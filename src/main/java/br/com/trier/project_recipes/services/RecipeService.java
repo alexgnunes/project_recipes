@@ -8,7 +8,7 @@ import br.com.trier.project_recipes.models.enums.Difficulty;
 public interface RecipeService {
 
 	Recipe findById(Integer id);
-	List<Recipe> findByTitleOrderIgnoreCaseByTitle(String title);
+	List<Recipe> findByTitleIgnoreCaseOrderByTitle(String title);
 	List<Recipe> findByTitleContainingIgnoreCaseOrderByTitle(String title);
 	List<Recipe> findByDifficultyIgnoreCaseOrderByTitle(Difficulty difficulty);
 	List<Recipe> listAll();
