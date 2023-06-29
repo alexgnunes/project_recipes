@@ -20,7 +20,7 @@ import jakarta.transaction.Transactional;
 
 @Transactional
 @Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:/resources/sqls/import.sql")
-class CategoryServiceTest extends BaseTest {
+class RecipeServiceTest extends BaseTest{
 
 	@Autowired
 	CategoryService service;

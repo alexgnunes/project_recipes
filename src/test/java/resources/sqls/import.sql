@@ -12,6 +12,7 @@ INSERT INTO public.category (id_category, nome_category) VALUES (6, 'frutas');
 
 INSERT INTO public.person (id_person, email_person, nome_person, senha_person) VALUES (2, 'john.doe@example.com', 'John Doe', 'john');
 INSERT INTO public.person (id_person, email_person, nome_person, senha_person) VALUES (3, 'jane@example.com', 'Jane Smith', 'jane');
+INSERT INTO public.person (id_person, email_person, nome_person, senha_person) VALUES (4, 'Pedro@example.com', 'Pedro ', 'Pedro');
 
 INSERT INTO public.recipe (id_recipe, description_recipe, difficulty_recipe, preparation_time_recipe, title_recipe, category_id_category, person_id_person) VALUES (2, '1 xc acucar, 100g de trigo, misture ponha forn por 30 min', 2, 30, 'Bolo Simples', 2, 2);
 INSERT INTO public.recipe (id_recipe, description_recipe, difficulty_recipe, preparation_time_recipe, title_recipe, category_id_category, person_id_person) VALUES (3, '200g de carne moida, 1 cebola picada, 2 dentes de alho, refogue a carne com a cebola e o alho ate dourar', 3, 45, 'Carne Moida Refogada', 3, 3);

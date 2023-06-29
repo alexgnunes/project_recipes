@@ -27,7 +27,7 @@ public class PersonServiceImpl implements PersonService {
 				throw new IntegrityViolation("%s já cadastrado(a)".formatted(person.getEmail()));
 			}
 		});
-	}
+	} 
 
 	@Override
 	public Person findById(Integer id) {
@@ -39,7 +39,7 @@ public class PersonServiceImpl implements PersonService {
 	public List<Person> findByNameContainingIgnoreCaseOrderByName(String name) {
 		List<Person> list = repository.findByNameContainingIgnoreCaseOrderByName(name);
 		if (list.isEmpty()) {
-			throw new ObjectNotFound("Nenhum Usuario(a) cadastrado(a)");
+			throw new ObjectNotFound("Usuario(a) %s não encontrado(a)".formatted(name));
 		}
 		return list;
 	}
@@ -55,6 +55,7 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public Person insert(Person person) {
+		findByEmail(person);
 		return repository.save(person);
 	}
 
