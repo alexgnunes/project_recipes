@@ -76,7 +76,7 @@ public class RecipeServiceImpl implements RecipeService {
 	@Override
 	public void delete(Integer id) {
 		try{
-			Recipe recipe = findById(id);
+			Recipe recipe = findById(id); 
 			repository.delete(recipe);
 		}catch (DataIntegrityViolationException e) {
 			throw new DataBaseException(e.getMessage());

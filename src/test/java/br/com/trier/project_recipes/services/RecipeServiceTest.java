@@ -13,7 +13,8 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
 import br.com.trier.project_recipes.BaseTest;
-import br.com.trier.project_recipes.models.Category;
+import br.com.trier.project_recipes.models.Recipe;
+import br.com.trier.project_recipes.models.enums.Difficulty;
 import br.com.trier.project_recipes.services.exceptions.DataBaseException;
 import br.com.trier.project_recipes.services.exceptions.ObjectNotFound;
 import jakarta.transaction.Transactional;
@@ -23,60 +24,75 @@ import jakarta.transaction.Transactional;
 class RecipeServiceTest extends BaseTest{
 
 	@Autowired
-	CategoryService service;
+	RecipeService service;
 
 	@Test
 	@DisplayName("busca por id")
 	void findByIdTest() {
-		Category category = service.findById(2);
-		assertNotNull(category);
-		assertEquals(2, category.getId());
-		assertEquals("Bolos", category.getName());
+		Recipe recipe = service.findById(2);
+		assertNotNull(recipe);
+		assertEquals(2, recipe.getId());
+		assertEquals("Bolo Simples", recipe.getTitle());
 	}
 
 	@Test
 	@DisplayName("busca por id inexistente")
 	void findByIdNomExistIdTest() {
 		var ex = assertThrows(ObjectNotFound.class, () -> service.findById(10));
-		assertEquals("Categoria 10 não encontrada", ex.getMessage());
+		assertEquals("Receita 10 não encontrada", ex.getMessage());
 	}
 
 	@Test
-	@DisplayName("busca por  nome")
-	void findByNameTest() {
-		List<Category> list = service.findByNameIgnoreCaseOrderByName("Bolos");
+	@DisplayName("busca por titulo")
+	void findByTitleTest() {
+		List<Recipe> list = service.findByTitleIgnoreCaseOrderByTitle("Bolo Simples");
 		assertEquals(1, list.size());
-		assertEquals("Bolos", list.get(0).getName());
+		assertEquals("Bolo Simples", list.get(0).getTitle());
 	}
 
 	@Test
-	@DisplayName("busca por nome inexistente")
-	void findByNomExistNameTest() {
-		var ex = assertThrows(ObjectNotFound.class, () -> service.findByNameIgnoreCaseOrderByName("Bo"));
-		assertEquals("Categoria Bo não encontrada", ex.getMessage());
+	@DisplayName("busca por titulo inexistente")
+	void findByNomExistTitleTest() {
+		var ex = assertThrows(ObjectNotFound.class, () -> service.findByTitleIgnoreCaseOrderByTitle("xxx"));
+		assertEquals("Nenhuma receita cadastrada", ex.getMessage());
 	}
 
 	@Test
-	@DisplayName("busca por nome contendo")
-	void findByPartNameTest() {
-		List<Category> list = service.findByNameContainingIgnoreCaseOrderByName("s");
-		assertEquals(5, list.size());
-		assertEquals("Bolos", list.get(0).getName());
+	@DisplayName("busca por titulo contendo")
+	void findByPartTitleTest() {
+		List<Recipe> list = service.findByTitleContainingIgnoreCaseOrderByTitle("simples");
+		assertEquals(2, list.size());
+		assertEquals("Bolo Simples", list.get(0).getTitle());
 	}
 
 	@Test
-	@DisplayName("busca por nome contendo inexistente")
-	void findByNomExistPartNameTest() {
-		var ex = assertThrows(ObjectNotFound.class, () -> service.findByNameContainingIgnoreCaseOrderByName("xxx"));
-		assertEquals("Categoria xxx não encontrada", ex.getMessage());
+	@DisplayName("busca por titulo contendo inexistente")
+	void findByNomExistPartTitleTest() {
+		var ex = assertThrows(ObjectNotFound.class, () -> service.findByTitleContainingIgnoreCaseOrderByTitle("xxx"));
+		assertEquals("Nenhuma receita cadastrada", ex.getMessage());
+	}
+	
+	@Test
+	@DisplayName("busca por dificuldade")
+	void findByDifficultyTest() {
+		List<Recipe> list = service.findByDifficultyOrderByTitle(Difficulty.DIFICIL);
+		assertEquals(2, list.size());
+		assertEquals("Bolo Simples", list.get(0).getTitle());
 	}
 
+	@Test
+	@DisplayName("busca por dificuldade inexistente")
+	@Sql({ "classpath:/resources/sqls/limpa_tabela.sql" })
+	void findByNomExistDifficultyTest() {
+		var ex = assertThrows(ObjectNotFound.class, () -> service.findByDifficultyOrderByTitle(Difficulty.DIFICIL));
+		assertEquals("Não houve uma receita com dificuldade: DIFICIL", ex.getMessage());
+	}
+	
 	@Test
 	@DisplayName("Busca todos")
 	void listAllTest() {
-		List<Category> list = service.listAll();
-		assertEquals(5, list.size());
-		assertEquals("Bolos", list.get(0).getName());
+		List<Recipe> list = service.listAll();
+		assertEquals(4, list.size());
 	}
 
 	@Test
@@ -84,41 +100,41 @@ class RecipeServiceTest extends BaseTest{
 	@Sql({ "classpath:/resources/sqls/limpa_tabela.sql" })
 	void listAllWithEmptyTest() {
 		var exception = assertThrows(ObjectNotFound.class, () -> service.listAll());
-		assertEquals("Nenhuma categoria cadastrada", exception.getMessage());
+		assertEquals("Nenhuma receita cadastrada", exception.getMessage());
 	}
 
 	@Test
 	@DisplayName("insere ")
 	void insertTest() {
-		Category category = new Category(null, "insert");
-		service.insert(category);
-		assertEquals(6, service.listAll().size());
-		assertEquals(1, category.getId());
-		assertEquals("insert", category.getName());
+		Recipe recipe = new Recipe(null, "insert", null, null, null, null, null);
+		service.insert(recipe);
+		assertEquals(5, service.listAll().size());
+		assertEquals(1, recipe.getId());
+		assertEquals("insert", recipe.getTitle());
 	}
 
 	@Test
 	@DisplayName("Update ")
 	void updateTest() {
-		Category category = new Category(2, "update");
-		service.update(category);
-		Category categoryUpdated = service.findById(2);
-		assertEquals("update", categoryUpdated.getName());
+		Recipe recipe = new Recipe(2, "update", null, null, null, null, null);
+		service.update(recipe);
+		Recipe recipeUpdated = service.findById(2);
+		assertEquals("update", recipeUpdated.getTitle());
 	}
 
 	@Test
 	@DisplayName("Delete")
 	void deleteTest() {
-		service.delete(6);
-		List<Category> list = service.listAll();
-		assertEquals(4, list.size());
+		service.delete(5);
+		List<Recipe> list = service.listAll();
+		assertEquals(3, list.size());
 	}
 
 	@Test
 	@DisplayName("Delete id inexistente")
 	void deleteNomExistIdTest() {
 		var ex = assertThrows(ObjectNotFound.class, () -> service.delete(1));
-		assertEquals("Categoria 1 não encontrada", ex.getMessage());
+		assertEquals("Receita 1 não encontrada", ex.getMessage());
 	}
 
 	@Test
