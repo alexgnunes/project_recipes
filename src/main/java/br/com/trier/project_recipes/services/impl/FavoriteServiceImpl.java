@@ -28,21 +28,13 @@ public class FavoriteServiceImpl implements FavoriteService{
 	}
 
 	@Override
-	public List<Favorite> findByPerson(Person person) {
-		List<Favorite> list = repository.findByPerson(person);
-		if (list.isEmpty()) {
-			throw new ObjectNotFound("Nenhum usuario cadastrado(a)");
-		}
-		return list;
-	}
+	public List<Favorite> findByPerson(Person person) {		
+		return repository.findByPerson(person);
+	} 
 
 	@Override
-	public List<Favorite> findByRecipe(Recipe recipe) {
-		List<Favorite> list = repository.findByRecipe(recipe);
-		if (list.isEmpty()) {
-			throw new ObjectNotFound("Nenhuma receita cadastrada");
-		}
-		return list;
+	public List<Favorite> findByRecipe(Recipe recipe) {		
+		return repository.findByRecipe(recipe);
 	}
 
 	@Override
