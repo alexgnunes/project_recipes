@@ -14,15 +14,15 @@ import br.com.trier.project_recipes.services.exceptions.DataBaseException;
 import br.com.trier.project_recipes.services.exceptions.ObjectNotFound;
 
 @Service
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryRepository repository;
-	
+
 	@Override
 	public Category findById(Integer id) {
 		Optional<Category> category = repository.findById(id);
-		return category.orElseThrow(() ->new ObjectNotFound("Categoria %s não encontrada".formatted(id)));
+		return category.orElseThrow(() -> new ObjectNotFound("Categoria %s não encontrada".formatted(id)));
 	}
 
 	@Override
@@ -65,11 +65,11 @@ public class CategoryServiceImpl implements CategoryService{
 
 	@Override
 	public void delete(Integer id) {
-		try{
+		try {
 			Category category = findById(id);
-			repository.delete(category);	
-		}catch (DataIntegrityViolationException e) {
+			repository.delete(category);
+		} catch (DataIntegrityViolationException e) {
 			throw new DataBaseException(e.getMessage());
-		}	
-	}	
+		}
+	}
 }
