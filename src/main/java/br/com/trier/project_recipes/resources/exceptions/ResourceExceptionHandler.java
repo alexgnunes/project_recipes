@@ -29,7 +29,7 @@ public class ResourceExceptionHandler {
 	
 	@ExceptionHandler(DataBaseException.class)
 	public ResponseEntity<StandartError> dataBase(DataBaseException e, HttpServletRequest req){
-		StandartError error = new StandartError(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(), e.getMessage(), req.getRequestURI());
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		StandartError error = new StandartError(LocalDateTime.now(), HttpStatus.EXPECTATION_FAILED.value(), e.getMessage(), req.getRequestURI());
+		return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(error);
 	}
 }

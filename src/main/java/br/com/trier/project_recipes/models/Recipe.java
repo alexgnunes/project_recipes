@@ -1,8 +1,5 @@
 package br.com.trier.project_recipes.models;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import br.com.trier.project_recipes.models.dto.RecipeDTO;
 import br.com.trier.project_recipes.models.enums.Difficulty;
 import jakarta.persistence.Column;
@@ -43,11 +40,9 @@ public class Recipe {
 	private Difficulty difficulty;
 
 	@ManyToOne
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Person person;
 
 	@ManyToOne
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Category category;
 
 	public Recipe(RecipeDTO dto, Person person, Category category) {

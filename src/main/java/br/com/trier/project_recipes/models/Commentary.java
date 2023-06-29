@@ -33,7 +33,6 @@ public class Commentary {
 	private String content;
 	
 	@ManyToOne
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Person person;
 	
 	@ManyToOne	
