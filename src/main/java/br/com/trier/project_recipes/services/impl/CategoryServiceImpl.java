@@ -29,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService{
 	public List<Category> findByNameIgnoreCaseOrderByName(String title) {
 		List<Category> list = repository.findByNameIgnoreCaseOrderByName(title);
 		if (list.isEmpty()) {
-			throw new ObjectNotFound("Receita %s não encontrada".formatted(title));
+			throw new ObjectNotFound("Categoria %s não encontrada".formatted(title));
 		}
 		return list;
 	}
@@ -38,7 +38,7 @@ public class CategoryServiceImpl implements CategoryService{
 	public List<Category> findByNameContainingIgnoreCaseOrderByName(String title) {
 		List<Category> list = repository.findByNameContainingIgnoreCaseOrderByName(title);
 		if (list.isEmpty()) {
-			throw new ObjectNotFound("Receita %s não encontrada".formatted(title));
+			throw new ObjectNotFound("Categoria %s não encontrada".formatted(title));
 		}
 		return list;
 	}
@@ -47,7 +47,7 @@ public class CategoryServiceImpl implements CategoryService{
 	public List<Category> listAll() {
 		List<Category> list = repository.findAll();
 		if (list.isEmpty()) {
-			throw new ObjectNotFound("Nenhuma categoria cadastrata");
+			throw new ObjectNotFound("Nenhuma categoria cadastrada");
 		}
 		return list;
 	}

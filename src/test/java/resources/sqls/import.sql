@@ -18,3 +18,7 @@ INSERT INTO public.commentary (content_commentary, person_id_person, recipe_id_r
 INSERT INTO public.commentary (content_commentary, person_id_person, recipe_id_recipe) VALUES ('Fácil de fazer!', 1, 3);
 INSERT INTO public.commentary (content_commentary, person_id_person, recipe_id_recipe) VALUES ('Vou fazer no fim de semana!', 2, 3);
 
+INSERT INTO public.favorite (person_id_person, recipe_id_recipe) VALUES (1, 1);
+INSERT INTO public.favorite (person_id_person, recipe_id_recipe) VALUES (1, 2);
+INSERT INTO public.favorite (person_id_person, recipe_id_recipe) VALUES (2, 1);
+INSERT INTO public.favorite (person_id_person, recipe_id_recipe) VALUES (2, 3);

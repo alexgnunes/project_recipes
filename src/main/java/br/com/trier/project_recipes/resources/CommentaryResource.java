@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.trier.project_recipes.models.Commentary;
+import br.com.trier.project_recipes.models.dto.CommentaryDTO;
 import br.com.trier.project_recipes.services.CommentaryService;
+import br.com.trier.project_recipes.services.PersonService;
+import br.com.trier.project_recipes.services.RecipeService;
 
 @RestController
 @RequestMapping("/commentaries")
@@ -23,31 +26,44 @@ public class CommentaryResource {
 	@Autowired
 	private CommentaryService service;
 	
+	@Autowired
+	private PersonService personService;
+	
+	@Autowired
+	private RecipeService recipeService;
+	
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Commentary> findById(@PathVariable Integer id){
-		return ResponseEntity.ok(service.findById(id));
+	public ResponseEntity<CommentaryDTO> findById(@PathVariable Integer id){
+		return ResponseEntity.ok(service.findById(id).toDTO());
 	}
 	
 	@GetMapping("/content/{content}")
-	public ResponseEntity<List<Commentary>> findByContentContainingIgnoreCase(@PathVariable String content){
-		return ResponseEntity.ok(service.findByContentContainingIgnoreCase(content));
+	public ResponseEntity<List<CommentaryDTO>> findByContentContainingIgnoreCase(@PathVariable String content){
+		return ResponseEntity.ok(service.findByContentContainingIgnoreCase(content)
+				.stream().map((x) -> x.toDTO()).toList());	
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Commentary>> listAll(){
-		return ResponseEntity.ok(service.listAll());
+	public ResponseEntity<List<CommentaryDTO>> listAll(){
+	    return ResponseEntity.ok(service.listAll()
+	            .stream().map(x -> x.toDTO()).toList());    
 	}
+
 	
 	@PostMapping
-	public ResponseEntity<Commentary> insert(@RequestBody Commentary commentary){
-		return ResponseEntity.ok(service.insert(commentary));
+	public ResponseEntity<CommentaryDTO> insert(@RequestBody CommentaryDTO dto){
+		return ResponseEntity.ok(service
+				.insert(new Commentary(dto, personService.findById(dto.getPersonId()),
+						recipeService.findById(dto.getRecipeId()))).toDTO());
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Commentary> update(@PathVariable Integer id, @RequestBody Commentary commentary){
+	public ResponseEntity<CommentaryDTO> update(@PathVariable Integer id, @RequestBody CommentaryDTO dto){
+		Commentary commentary = new Commentary(dto, personService.findById(dto.getPersonId()),
+				recipeService.findById(dto.getRecipeId()));
 		commentary.setId(id);
-		return ResponseEntity.ok(service.update(commentary));
+		return ResponseEntity.ok(service.update(commentary).toDTO());
 	}
 	
 	@DeleteMapping("/{id}")

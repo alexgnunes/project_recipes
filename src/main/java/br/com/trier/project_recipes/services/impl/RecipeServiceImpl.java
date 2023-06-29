@@ -30,7 +30,7 @@ public class RecipeServiceImpl implements RecipeService {
 	public List<Recipe> findByTitleIgnoreCaseOrderByTitle(String title) {
 		List<Recipe> list = repository.findByTitleIgnoreCaseOrderByTitle(title);
 		if (list.isEmpty()) {
-			throw new ObjectNotFound("Receita %s não encontrada".formatted(title));
+			throw new ObjectNotFound("Nenhuma receita cadastrada".formatted(title));
 		}
 		return list;
 	}
@@ -39,14 +39,14 @@ public class RecipeServiceImpl implements RecipeService {
 	public List<Recipe> findByTitleContainingIgnoreCaseOrderByTitle(String title) {
 		List<Recipe> list = repository.findByTitleContainingIgnoreCaseOrderByTitle(title);
 		if (list.isEmpty()) {
-			throw new ObjectNotFound("Receita %s não encontrada".formatted(title));
+			throw new ObjectNotFound("Nenhuma receita cadastrada".formatted(title));
 		}
 		return list;
 	}
 
 	@Override
 	public List<Recipe> findByDifficultyOrderByTitle(Difficulty difficulty) {
-		List<Recipe> list = repository.findByDifficultyOrderByTitle(difficulty.toString().toUpperCase());
+		List<Recipe> list = repository.findByDifficultyOrderByTitle(difficulty);
 		if (list.isEmpty()) {
 			throw new ObjectNotFound("Não houve uma receita com dificuldade: %s".formatted(difficulty));
 		}

@@ -3,6 +3,7 @@ package br.com.trier.project_recipes.models;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import br.com.trier.project_recipes.models.dto.CommentaryDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,4 +39,12 @@ public class Commentary {
 	@ManyToOne	
 	@OnDelete(action = OnDeleteAction.CASCADE)
     private Recipe recipe;
+	
+	public Commentary(CommentaryDTO dto, Person person, Recipe recipe) {
+		this(dto.getId(), dto.getContent(), person,recipe);
+	}	
+	
+	public CommentaryDTO toDTO() {
+		return new CommentaryDTO(id, content, person.getId(), person.getName(), recipe.getId(), recipe.getTitle());
+	}
 }

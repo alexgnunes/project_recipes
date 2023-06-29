@@ -51,11 +51,12 @@ public class RecipeResource {
 				.stream().map((recipe) -> recipe.toDTO()).toList());
 	}
 	
-	@GetMapping("/Difficulty/{Difficulty}")
+	@GetMapping("/difficulty/{difficulty}")
 	public ResponseEntity<List<RecipeDTO>> findByDifficultyOrderByTitle(@PathVariable Difficulty difficulty){
 		return ResponseEntity.ok(service.findByDifficultyOrderByTitle(difficulty)
 				.stream().map((recipe) -> recipe.toDTO()).toList());
 	}
+	
 	@GetMapping
 	public ResponseEntity<List<RecipeDTO>> listAll(){
 		return ResponseEntity.ok(service.listAll().stream().map((recipe) -> recipe.toDTO()).toList());

@@ -24,7 +24,7 @@ public class PersonServiceImpl implements PersonService {
 		Optional<Person> busca = repository.findByEmail(person.getEmail());
 		busca.ifPresent(x -> {
 			if (!x.getId().equals(person.getId())) {
-				throw new IntegrityViolation("%s já cadastrado ".formatted(person.getEmail()));
+				throw new IntegrityViolation("%s já cadastrado(a)".formatted(person.getEmail()));
 			}
 		});
 	}
@@ -32,14 +32,14 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public Person findById(Integer id) {
 		Optional<Person> person = repository.findById(id);
-		return person.orElseThrow(() -> new ObjectNotFound("Usuario %s não encontrado".formatted(id)));
+		return person.orElseThrow(() -> new ObjectNotFound("Usuario(a) %s não encontrado(a)".formatted(id)));
 	}
 
 	@Override
 	public List<Person> findByNameContainingIgnoreCaseOrderByName(String name) {
 		List<Person> list = repository.findByNameContainingIgnoreCaseOrderByName(name);
 		if (list.isEmpty()) {
-			throw new ObjectNotFound("Nenhum usuario cadastrado");
+			throw new ObjectNotFound("Nenhum Usuario(a) cadastrado(a)");
 		}
 		return list;
 	}
@@ -48,7 +48,7 @@ public class PersonServiceImpl implements PersonService {
 	public List<Person> listAll() {
 		List<Person> list = repository.findAll();
 		if (list.isEmpty()) {
-			throw new ObjectNotFound("Nenhum usuario cadastrado");
+			throw new ObjectNotFound("Nenhum Usuario(a) cadastrado(a)");
 		}
 		return list;
 	}
