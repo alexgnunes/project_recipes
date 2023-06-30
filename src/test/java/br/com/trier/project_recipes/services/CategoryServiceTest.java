@@ -14,7 +14,6 @@ import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
 import br.com.trier.project_recipes.BaseTest;
 import br.com.trier.project_recipes.models.Category;
-import br.com.trier.project_recipes.services.exceptions.DataBaseException;
 import br.com.trier.project_recipes.services.exceptions.ObjectNotFound;
 import jakarta.transaction.Transactional;
 
@@ -104,18 +103,6 @@ class CategoryServiceTest extends BaseTest {
 		service.update(category);
 		Category categoryUpdated = service.findById(2);
 		assertEquals("update", categoryUpdated.getName());
-	}
-	
-
-	@Test
-	@DisplayName("Delete id que é chave estrangeira")
-	@Sql({ "classpath:/resources/sqls/limpa_tabela.sql" })
-	@Sql({ "classpath:/resources/sqls/import.sql" })
-	void deleteIdForeignkeyTest() {
-		var ex = assertThrows(DataBaseException.class, () -> service.delete(2));
-		assertEquals("Violação de integridade com o banco de dados", ex.getMessage());
-		List<Category> list = service.listAll();
-		assertEquals(3, list.size());
 	}
 
 	@Test

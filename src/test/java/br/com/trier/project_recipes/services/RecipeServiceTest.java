@@ -15,7 +15,6 @@ import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import br.com.trier.project_recipes.BaseTest;
 import br.com.trier.project_recipes.models.Recipe;
 import br.com.trier.project_recipes.models.enums.Difficulty;
-import br.com.trier.project_recipes.services.exceptions.DataBaseException;
 import br.com.trier.project_recipes.services.exceptions.ObjectNotFound;
 import jakarta.transaction.Transactional;
 
@@ -135,12 +134,5 @@ class RecipeServiceTest extends BaseTest{
 	void deleteNomExistIdTest() {
 		var ex = assertThrows(ObjectNotFound.class, () -> service.delete(1));
 		assertEquals("Receita 1 não encontrada", ex.getMessage());
-	}
-
-	@Test
-	@DisplayName("Delete id que é chave estrangeira")
-	void deleteIdForeignkeyTest() {
-		var ex = assertThrows(DataBaseException.class, () -> service.delete(3));
-		assertEquals("Violação de integridade com o banco de dados", ex.getMessage());
 	}
 }

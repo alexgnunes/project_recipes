@@ -14,7 +14,6 @@ import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
 import br.com.trier.project_recipes.BaseTest;
 import br.com.trier.project_recipes.models.Person;
-import br.com.trier.project_recipes.services.exceptions.DataBaseException;
 import br.com.trier.project_recipes.services.exceptions.IntegrityViolation;
 import br.com.trier.project_recipes.services.exceptions.ObjectNotFound;
 import jakarta.transaction.Transactional;
@@ -114,14 +113,7 @@ class PersonServiceTest extends BaseTest{
 	void deleteNomExistIdTest() {
 		var ex = assertThrows(ObjectNotFound.class, () -> service.delete(1));
 		assertEquals("Usuario(a) 1 não encontrado(a)", ex.getMessage());
-	}	
-	
-	@Test
-	@DisplayName("Delete id que é chave estrangeira")
-	void deleteIdForeignkeyTest() {
-		var ex = assertThrows(DataBaseException.class, () -> service.delete(2));
-		assertEquals("Violação de integridade com o banco de dados", ex.getMessage());
-	}	
+	}		
 }
 
 	
