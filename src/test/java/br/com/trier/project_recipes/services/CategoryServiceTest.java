@@ -105,6 +105,18 @@ class CategoryServiceTest extends BaseTest {
 		Category categoryUpdated = service.findById(2);
 		assertEquals("update", categoryUpdated.getName());
 	}
+	
+
+	@Test
+	@DisplayName("Delete id que é chave estrangeira")
+	@Sql({ "classpath:/resources/sqls/limpa_tabela.sql" })
+	@Sql({ "classpath:/resources/sqls/import.sql" })
+	void deleteIdForeignkeyTest() {
+		var ex = assertThrows(DataBaseException.class, () -> service.delete(2));
+		assertEquals("Violação de integridade com o banco de dados", ex.getMessage());
+		List<Category> list = service.listAll();
+		assertEquals(3, list.size());
+	}
 
 	@Test
 	@DisplayName("Delete")
@@ -121,10 +133,4 @@ class CategoryServiceTest extends BaseTest {
 		assertEquals("Categoria 1 não encontrada", ex.getMessage());
 	}
 
-	@Test
-	@DisplayName("Delete id que é chave estrangeira")
-	void deleteIdForeignkeyTest() {
-		var ex = assertThrows(DataBaseException.class, () -> service.delete(2));
-		assertEquals("Violação de integridade com o banco de dados", ex.getMessage());
-	}
 }

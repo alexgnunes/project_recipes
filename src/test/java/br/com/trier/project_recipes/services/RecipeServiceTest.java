@@ -140,7 +140,7 @@ class RecipeServiceTest extends BaseTest{
 	@Test
 	@DisplayName("Delete id que é chave estrangeira")
 	void deleteIdForeignkeyTest() {
-		var ex = assertThrows(DataBaseException.class, () -> service.delete(2));
+		var ex = assertThrows(DataBaseException.class, () -> service.delete(3));
 		assertEquals("Violação de integridade com o banco de dados", ex.getMessage());
 	}
 }
