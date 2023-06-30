@@ -57,7 +57,7 @@ class CategoryResourceTest {
 				);
 	}
 
-	private ResponseEntity<List<Category>> getCommentaries(String url) {
+	private ResponseEntity<List<Category>> getCategories(String url) {
 		return rest.exchange(
 				url, HttpMethod.GET, 
 				new HttpEntity<>(getHeaders("john.doe@example.com", "john")), 
@@ -89,6 +89,7 @@ class CategoryResourceTest {
 				new ParameterizedTypeReference<List<Category>>() {});
 		assertEquals(response.getStatusCode(), HttpStatus.OK);
 	}
+	
 	@Test
 	@DisplayName("Buscar por id")
 	@Sql({"classpath:/resources/sqls/limpa_tabela.sql"})
@@ -114,7 +115,7 @@ class CategoryResourceTest {
 	@Sql({"classpath:/resources/sqls/limpa_tabela.sql"})
 	@Sql({"classpath:/resources/sqls/import.sql"})
 	public void findByNameTest() {
-		ResponseEntity<List<Category>> response = getCommentaries("/categories/name/Bolos");
+		ResponseEntity<List<Category>> response = getCategories("/categories/name/Bolos");
 		assertEquals(response.getStatusCode(), HttpStatus.OK);
 		assertEquals(1, response.getBody().size());
 	}
@@ -124,7 +125,7 @@ class CategoryResourceTest {
 	@Sql({"classpath:/resources/sqls/limpa_tabela.sql"})
 	@Sql({"classpath:/resources/sqls/import.sql"})
 	public void findByNameContainingTest() {
-		ResponseEntity<List<Category>> response = getCommentaries("/categories/partName/a");
+		ResponseEntity<List<Category>> response = getCategories("/categories/partName/a");
 		assertEquals(response.getStatusCode(), HttpStatus.OK);
 		assertEquals(4, response.getBody().size());
 	} 

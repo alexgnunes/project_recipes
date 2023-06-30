@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter 
 @NoArgsConstructor
 @AllArgsConstructor
-public class RecipeByDifficultyAndCategory {
+public class RecipeByDifficultyAndCategoryDTO {
 
 	private String category;
 	private String difficulty;
