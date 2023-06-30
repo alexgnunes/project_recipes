@@ -77,7 +77,7 @@ class PersonServiceTest extends BaseTest{
 	@Test
 	@DisplayName("insere ")
 	void insertTest() {
-		Person person = new Person(null, "insert", null, null);
+		Person person = new Person(null, "insert", null, null, null);
 		service.insert(person);
 		assertEquals(4, service.listAll().size());
 		assertEquals(1, person.getId());
@@ -87,7 +87,7 @@ class PersonServiceTest extends BaseTest{
 	@Test
 	@DisplayName("insere com mesmo email")
 	void insertWithSameEmailTest() {
-		Person person = new Person(null, "insert", "john.doe@example.com", null);
+		Person person = new Person(null, "insert", "john.doe@example.com", null, null);
 		var ex = assertThrows(IntegrityViolation.class, () -> service.insert(person));
 		assertEquals("john.doe@example.com já cadastrado(a)", ex.getMessage());
 	}
@@ -95,7 +95,7 @@ class PersonServiceTest extends BaseTest{
 	@Test
 	@DisplayName("Update ")
 	void updateTest() {		
-		Person person = new Person(2, "update", null, null);
+		Person person = new Person(2, "update", null, null, null);
 		service.update(person);
 		Person personUpdated = service.findById(2);
 		assertEquals("update", personUpdated.getName());
