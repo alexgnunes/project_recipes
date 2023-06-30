@@ -62,8 +62,8 @@ public class FavoriteServiceImpl implements FavoriteService{
 		try{
 			Favorite favorite = findById(id);
 			repository.delete(favorite);	
-		}catch (DataIntegrityViolationException e) {
-			throw new DataBaseException(e.getMessage());
+		} catch (DataIntegrityViolationException e) {
+			throw new DataBaseException("Violação de integridade com o banco de dados");
 		}	
 	}
 }

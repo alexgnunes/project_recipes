@@ -69,7 +69,7 @@ public class CategoryServiceImpl implements CategoryService {
 			Category category = findById(id);
 			repository.delete(category);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataBaseException(e.getMessage());
+			throw new DataBaseException("Violação de integridade com o banco de dados");
 		}
 	}
 }

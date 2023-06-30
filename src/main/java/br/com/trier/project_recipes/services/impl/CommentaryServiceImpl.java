@@ -59,8 +59,8 @@ public class CommentaryServiceImpl implements CommentaryService{
 		try{
 			Commentary commentary = findById(id);
 			repository.delete(commentary);	
-		}catch (DataIntegrityViolationException e) {
-			throw new DataBaseException(e.getMessage());
+		} catch (DataIntegrityViolationException e) {
+			throw new DataBaseException("Violação de integridade com o banco de dados");
 		}			
 	}	
 }

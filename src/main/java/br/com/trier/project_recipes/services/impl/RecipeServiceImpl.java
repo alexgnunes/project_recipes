@@ -78,8 +78,8 @@ public class RecipeServiceImpl implements RecipeService {
 		try{
 			Recipe recipe = findById(id); 
 			repository.delete(recipe);
-		}catch (DataIntegrityViolationException e) {
-			throw new DataBaseException(e.getMessage());
+		} catch (DataIntegrityViolationException e) {
+			throw new DataBaseException("Violação de integridade com o banco de dados");
 		}		
 	}
 }

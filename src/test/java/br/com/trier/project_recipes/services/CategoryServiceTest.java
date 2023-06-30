@@ -68,7 +68,7 @@ class CategoryServiceTest extends BaseTest {
 	@DisplayName("busca por nome contendo inexistente")
 	void findByNomExistPartNameTest() {
 		var ex = assertThrows(ObjectNotFound.class, () -> service.findByNameContainingIgnoreCaseOrderByName("xxx"));
-		assertEquals("Categoria xxx não encontrada", ex.getMessage());
+		assertEquals("Categoria xxx não encontrada", ex.getMessage()); 
 	}
 
 	@Test
@@ -125,7 +125,6 @@ class CategoryServiceTest extends BaseTest {
 	@DisplayName("Delete id que é chave estrangeira")
 	void deleteIdForeignkeyTest() {
 		var ex = assertThrows(DataBaseException.class, () -> service.delete(2));
-		System.out.println("-----------------------------------------------------------");
-		System.out.println(ex.getMessage());
+		assertEquals("Violação de integridade com o banco de dados", ex.getMessage());
 	}
 }

@@ -70,8 +70,8 @@ public class PersonServiceImpl implements PersonService {
 		try{
 			Person person = findById(id);
 			repository.delete(person);
-		}catch (DataIntegrityViolationException e) {
-			throw new DataBaseException(e.getMessage());
+		} catch (DataIntegrityViolationException e) {
+			throw new DataBaseException("Violação de integridade com o banco de dados");
 		}
 	}
 }
